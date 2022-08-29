@@ -9,7 +9,7 @@ import com.example.vodaaccounttask.databinding.ProductRowBinding
 import com.example.vodaaccounttask.model.Account
 
 
-internal class AccountRecyclerAdapter(var accountList: List<Account>) :
+internal class AccountRecyclerAdapter(var accountList: ArrayList<Account>) :
     RecyclerView.Adapter<AccountRecyclerAdapter.AccountViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -28,6 +28,7 @@ internal class AccountRecyclerAdapter(var accountList: List<Account>) :
         return accountList.size
     }
     var defaultIndex = 0
+
     internal inner class AccountViewHolder(var productRowBinding: ProductRowBinding) :
         RecyclerView.ViewHolder(productRowBinding.root) {
 
@@ -42,8 +43,12 @@ internal class AccountRecyclerAdapter(var accountList: List<Account>) :
                 if (adapterPosition == defaultIndex) {
                     Toast.makeText(this.productRowBinding.root.context, "Can't Remove your default account", Toast.LENGTH_LONG).show()
                 } else {
-                    accountList = accountList.drop(adapterPosition)
-                    notifyItemRemoved(adapterPosition);
+                    // remove this account
+                    accountList.removeAt(adapterPosition)
+                    if (defaultIndex > adapterPosition){
+                        defaultIndex-=1
+                    }
+                    notifyItemRemoved(adapterPosition)
                 }
 
             }

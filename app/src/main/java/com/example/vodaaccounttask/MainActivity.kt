@@ -18,8 +18,8 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding.recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
-    private fun getAccountList(): List<Account> {
-        val accountList: MutableList<Account> = ArrayList()
+    private fun getAccountList(): ArrayList<Account> {
+        val accountList: ArrayList<Account> = ArrayList()
         accountList.add(Account("Account 1", "70",  "https://picsum.photos/id/237/200",true))
         accountList.add(Account("Account 2", "70", "https://picsum.photos/id/238/200"))
         accountList.add(Account("Account 3", "70",  "https://picsum.photos/id/239/200"))
