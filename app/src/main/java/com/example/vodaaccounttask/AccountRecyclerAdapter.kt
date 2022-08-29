@@ -1,7 +1,9 @@
 package com.example.vodaaccounttask
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vodaaccounttask.databinding.ProductRowBinding
 import com.example.vodaaccounttask.model.Account
@@ -30,6 +32,22 @@ internal class AccountRecyclerAdapter(var accountList: List<Account>) :
         RecyclerView.ViewHolder(productRowBinding.root) {
 
         init {
+            // click listener for edit button
+            productRowBinding.editButton.setOnClickListener {
+                Log.d("Edit", "Edit Button is clicked -> Open new modal for example!")
+            }
+            // click listener for remove button
+            productRowBinding.removeButton.setOnClickListener {
+                // remove this device from backend if needed at first then remove it from UI
+                if (adapterPosition == defaultIndex) {
+                    Toast.makeText(this.productRowBinding.root.context, "Can't Remove your default account", Toast.LENGTH_LONG).show()
+                } else {
+                    accountList = accountList.drop(adapterPosition)
+                    notifyItemRemoved(adapterPosition);
+                }
+
+            }
+            // click listener for checkbox
             productRowBinding.activeButton.setOnClickListener {
                 //first set not default for the old defaultIndex
                 accountList[defaultIndex].isDefault = false
